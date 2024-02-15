@@ -137,8 +137,8 @@ script_source = r"""
                 // Turing
                 if(0x1e02 <= actual_devid && actual_devid <= 0x1ff9 ||
                    0x2182 <= actual_devid && actual_devid <= 0x21d1) {
-                    spoofed_devid = 0x1eb8; // Tesla T4
-                    spoofed_subsysid = 0x12a2; // Tesla T4 maybe unnecessary
+                    spoofed_devid = 0x1e30; // Tesla T4
+                    spoofed_subsysid = 0x12ba; // Tesla T4 maybe unnecessary
                 }
 
                 // Ampere

@@ -829,7 +829,7 @@ static uint16_t vgpu_unlock_pci_devid_to_vgpu_capable(uint16_t pci_devid)
 	/* Turing */
 	case 0x1e02 ... 0x1ff9:
 	case 0x2182 ... 0x21d1: /* TU116 */
-		return 0x1eb8; /* Tesla T4
+		return 0x1e30; /* Tesla T4
 
 	/* Ampere */
 	case 0x2200 ... 0x2600:

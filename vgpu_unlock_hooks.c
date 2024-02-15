@@ -9,9 +9,9 @@
  * Copyright 2021 Jonathan Johansson
  * This file is part of the "vgpu_unlock" project, and is distributed under the
  * MIT License. See the LICENSE file for more details.
- * 
+ *
  * Contributions from Krutav Shah and the vGPU Unlocking community included :)
- * 
+ *
  */
 
 /*------------------------------------------------------------------------------
@@ -19,7 +19,7 @@
  *------------------------------------------------------------------------------
  */
 
-typedef struct 
+typedef struct
 {
 	uint8_t round_key[176];
 }
@@ -84,7 +84,7 @@ static void vgpu_unlock_aes128_key_expansion(uint8_t *round_key,
 {
 	unsigned i, j, k;
 	uint8_t tempa[4];
-  
+
 	for (i = 0; i < Nk; ++i)
 	{
 		round_key[(i * 4) + 0] = Key[(i * 4) + 0];
@@ -187,7 +187,7 @@ static void vgpu_unlock_aes128_mix_columns(vgpu_unlock_aes128_state *state)
 	uint8_t tmp, tm, t;
 
 	for (i = 0; i < 4; ++i)
-	{  
+	{
 		t   = (*state)[i][0];
 	  	tmp = (*state)[i][0] ^ (*state)[i][1] ^ (*state)[i][2] ^ (*state)[i][3];
 	  	tm  = (*state)[i][0] ^ (*state)[i][1];
@@ -207,7 +207,7 @@ static void vgpu_unlock_aes128_inv_mix_columns(vgpu_unlock_aes128_state *state)
 	uint8_t a, b, c, d;
 
 	for (i = 0; i < 4; ++i)
-	{ 
+	{
 		a = (*state)[i][0];
 		b = (*state)[i][1];
 		c = (*state)[i][2];
@@ -671,7 +671,7 @@ static vgpu_unlock_vgpu_t vgpu_unlock_vgpu[] =
 	VGPU(0x1b38, 0x1382, "GRID P40-6C"),
 	VGPU(0x1b38, 0x1383, "GRID P40-8C"),
 	VGPU(0x1b38, 0x1384, "GRID P40-12C"),
-	
+
 	/* Tesla V100 32GB PCIE (Volta) */
 	VGPU(0x1db6, 0x12bd, "GRID V100D-1B"),
 	VGPU(0x1db6, 0x12be, "GRID V100D-2B"),
@@ -691,8 +691,8 @@ static vgpu_unlock_vgpu_t vgpu_unlock_vgpu[] =
 	VGPU(0x1db6, 0x12ca, "GRID V100D-32A"),
 	VGPU(0x1db6, 0x1395, "GRID V100D-4C"),
 	VGPU(0x1db6, 0x1396, "GRID V100D-8C"),
-	VGPU(0x1db6, 0x1397, "GRID V100D-16C"),	
-	VGPU(0x1db6, 0x1377, "GRID V100D-32C"),	
+	VGPU(0x1db6, 0x1397, "GRID V100D-16C"),
+	VGPU(0x1db6, 0x1377, "GRID V100D-32C"),
 
 	/* Tesla T4 (Turing) */
 	VGPU(0x1eb8, 0x1309, "GRID T4-1B"),
@@ -814,7 +814,7 @@ static uint16_t vgpu_unlock_pci_devid_to_vgpu_capable(uint16_t pci_devid)
 	case 0x1617 ... 0x1667: /* GM204 */
 	case 0x17c2 ... 0x17fd: /* GM200 */
 		return 0x13f2; /* Tesla M60 */
-		
+
 	/* Pascal */
 	case 0x15f0 ... 0x15f1: /* GP100GL */
 	case 0x1b00 ... 0x1d56:
@@ -829,10 +829,10 @@ static uint16_t vgpu_unlock_pci_devid_to_vgpu_capable(uint16_t pci_devid)
 	/* Turing */
 	case 0x1e02 ... 0x1ff9:
 	case 0x2182 ... 0x21d1: /* TU116 */
-		return 0x1e30; /* Quadro RTX 6000 */
-	
+		return 0x1eb8; /* Tesla T4
+
 	/* Ampere */
-	case 0x2200 ... 0x2600: 
+	case 0x2200 ... 0x2600:
 		return 0x2230; /* RTX A6000 */
 	}
 
@@ -978,7 +978,7 @@ static void vgpu_unlock_apply_patch(void)
 	vgpu_unlock_vgpu_t* vgpu;
 	uint8_t first_block[0x10];
 	uint16_t device_id;
-	
+
 	magic = vgpu_unlock_find_in_rodata(vgpu_unlock_magic,
 	                                   sizeof(vgpu_unlock_magic));
 	if (!magic)

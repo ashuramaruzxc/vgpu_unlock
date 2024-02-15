@@ -106,7 +106,7 @@ script_source = r"""
                 var spoofed_devid = actual_devid;
                 var actual_subsysid = subsysid_ptr.readU16();
                 var spoofed_subsysid = actual_subsysid;
-                
+
                 // Maxwell
                 if(0x1340 <= actual_devid && actual_devid <= 0x13bd ||
                    0x174d <= actual_devid && actual_devid <= 0x179c) {
@@ -137,8 +137,8 @@ script_source = r"""
                 // Turing
                 if(0x1e02 <= actual_devid && actual_devid <= 0x1ff9 ||
                    0x2182 <= actual_devid && actual_devid <= 0x21d1) {
-                    spoofed_devid = 0x1e30; // Quadro RTX 6000
-                    spoofed_subsysid = 0x12ba;
+                    spoofed_devid = 0x1eb8; // Tesla T4
+                    spoofed_subsysid = 0x12a2; // Tesla T4 maybe unnecessary
                 }
 
                 // Ampere
@@ -149,7 +149,7 @@ script_source = r"""
                 devid_ptr.writeU16(spoofed_devid);
                 subsysid_ptr.writeU16(spoofed_subsysid);
             }
-            
+
             if(op_type == OP_READ_DEV_TYPE) {
                 // Set device type to vGPU capable.
                 var dev_type_ptr = this.argp.add(0x10).readPointer();
